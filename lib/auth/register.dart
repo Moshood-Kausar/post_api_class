@@ -124,6 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
         auth.then((v) async {
           if (v.status == true) {
             stopLoading();
+            snackBar(v.message!);
 
             /// This simply means the api call is true, after this you launch the webview
 
