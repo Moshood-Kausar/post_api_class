@@ -3,7 +3,7 @@ import 'package:post_api_class/data/data_storage.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,11 +15,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: const Text('HomePage'),
       ),
       body: Column(
         children: [
-           Text('Login Succesful'),
+           const Text('Login Succesful'),
            Text(' Welcome to my App $name'),
            Text(' My email is $email')
         ],

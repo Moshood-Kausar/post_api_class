@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:post_api_class/core/api_service.dart';
 import 'package:post_api_class/core/models/register_model.dart';
 import 'package:post_api_class/core/models/userinfo_model.dart';
@@ -25,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -33,11 +32,11 @@ class _LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Welcome to Registaer Page using API',
               ),
-              Text('Kindly fill the form to confirm'),
-              SizedBox(
+              const Text('Kindly fill the form to confirm'),
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -58,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: 'Enter your email',
                     hintText: 'examples@gmail.com'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -73,20 +72,20 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     }
                   }),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _startloading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : MaterialButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           loginFuntion();
                         }
                       },
-                      child: Text('Login'),
-                      color: Colors.grey),
-              SizedBox(height: 50),
+                      color: Colors.grey,
+                      child: const Text('Login')),
+              const SizedBox(height: 50),
               TextButton(
-                child: Text('Have an account? Sign Up Here'),
+                child: const Text('Have an account? Sign Up Here'),
                 onPressed: () {},
               )
             ],
@@ -140,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
             stopLoading();
             snackBar('Login Succesful');
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => HomePage()));
+                context, MaterialPageRoute(builder: (_) => const HomePage()));
 
             /// This simply means the api call is true, after this you launch the webview
 

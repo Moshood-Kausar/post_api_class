@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:post_api_class/auth/login.dart';
 import 'package:post_api_class/core/api_service.dart';
 import 'package:post_api_class/core/models/register_model.dart';
 import 'package:post_api_class/core/models/userinfo_model.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -24,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -32,10 +31,10 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _formKey,
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Welcome to Registaer Page using API',
               ),
-              Text('Kindly fill the form to confirm'),
+              const Text('Kindly fill the form to confirm'),
               TextFormField(
                 controller: _name,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -49,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: const InputDecoration(
                     labelText: 'Full Name', hintText: 'Enter full Name'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -70,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: 'Enter your email',
                     hintText: 'examples@gmail.com'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -85,24 +84,25 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     }
                   }),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _startloading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : MaterialButton(
-                      onPressed: () {
+                    onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           registerFuntion();
                         }
                       },
-                      child: Text('Register'),
-                      color: Colors.grey),
-              SizedBox(height: 50),
+                      
+                      color: Colors.grey,
+                    child: const Text('Register')),
+              const SizedBox(height: 50),
               TextButton(
-                child: Text('Have an account? Login Here',
+                child: const Text('Have an account? Login Here',
                     style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => LoginPage()));
+                      context, MaterialPageRoute(builder: (_) => const LoginPage()));
                 },
               )
             ],
