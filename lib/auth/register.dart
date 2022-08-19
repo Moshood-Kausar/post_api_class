@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:post_api_class/auth/login.dart';
 import 'package:post_api_class/core/api_service.dart';
 import 'package:post_api_class/core/models/register_model.dart';
+import 'package:post_api_class/core/models/userinfo_model.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key? key}) : super(key: key);
@@ -124,7 +125,37 @@ class _RegisterPageState extends State<RegisterPage> {
         auth.then((v) async {
           if (v.status == true) {
             stopLoading();
+            getuserFunction(v.token!);
+
+            /// This simply means the api call is true, after this you launch the webview
+
+          } else {
+            stopLoading();
             snackBar(v.message!);
+          }
+        }).timeout(const Duration(seconds: 60), onTimeout: () {
+          stopLoading();
+          snackBar('Timeout error');
+        });
+      } else {
+        stopLoading();
+        snackBar('No internet connection');
+      }
+    } on SocketException catch (_) {
+      stopLoading();
+      snackBar('No internet connection');
+    }
+  }
+
+  void getuserFunction(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        Future<UserInfoModel> auth = ApiService().userinfoApi();
+        auth.then((v) async {
+          if (v.status == true) {
+            stopLoading();
+            snackBar('Login Succesful');
 
             /// This simply means the api call is true, after this you launch the webview
 

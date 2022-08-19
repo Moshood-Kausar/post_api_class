@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:post_api_class/core/api_service.dart';
 import 'package:post_api_class/core/models/register_model.dart';
+import 'package:post_api_class/core/models/userinfo_model.dart';
+import 'package:post_api_class/screens/homepage.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
   final _formKey = GlobalKey<FormState>();
   TextEditingController _email = TextEditingController();
 
@@ -74,8 +77,11 @@ class _LoginPageState extends State<LoginPage> {
               _startloading
                   ? CircularProgressIndicator()
                   : MaterialButton(
-                      onPressed: () {if(_formKey.currentState!.validate()){loginFuntion();}}
-                     ,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          loginFuntion();
+                        }
+                      },
                       child: Text('Login'),
                       color: Colors.grey),
               SizedBox(height: 50),
@@ -102,6 +108,39 @@ class _LoginPageState extends State<LoginPage> {
         auth.then((v) async {
           if (v.status == true) {
             stopLoading();
+            getuserFunction(v.token!);
+
+            /// This simply means the api call is true, after this you launch the webview
+
+          } else {
+            stopLoading();
+            snackBar(v.message!);
+          }
+        }).timeout(const Duration(seconds: 60), onTimeout: () {
+          stopLoading();
+          snackBar('Timeout error');
+        });
+      } else {
+        stopLoading();
+        snackBar('No internet connection');
+      }
+    } on SocketException catch (_) {
+      stopLoading();
+      snackBar('No internet connection');
+    }
+  }
+
+  void getuserFunction(String token) async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        Future<UserInfoModel> auth = ApiService().userinfoApi();
+        auth.then((v) async {
+          if (v.status == true) {
+            stopLoading();
+            snackBar('Login Succesful');
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => HomePage()));
 
             /// This simply means the api call is true, after this you launch the webview
 
