@@ -14,7 +14,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  
   final _formKey = GlobalKey<FormState>();
   TextEditingController _email = TextEditingController();
 
@@ -54,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
                 decoration: const InputDecoration(
+                    // suffix:TextButton(onPressed: (){}, child: Text('Forgot', style: TextStyle(color:Colors.green),),),
                     labelText: 'Enter your email',
                     hintText: 'examples@gmail.com'),
               ),
@@ -136,6 +136,8 @@ class _LoginPageState extends State<LoginPage> {
         Future<UserInfoModel> auth = ApiService().userinfoApi();
         auth.then((v) async {
           if (v.status == true) {
+            _email.clear();
+            _pass.clear();
             stopLoading();
             snackBar('Login Succesful');
             Navigator.push(
@@ -187,8 +189,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    _email.dispose();
-    _pass.dispose();
+    _email.clear();
+    _pass.clear();
 
     super.dispose();
   }
